@@ -122,7 +122,7 @@ exports.handler = async (event) => {
       const name = clean(body.name, 100);
       const email = clean(body.email, 120);
       const phone = clean(body.phone, 40);
-      if (!name || !email) return reply(400, { error: 'Add your name and email to sign up.' });
+      if (!name || !email || !phone) return reply(400, { error: 'Add your name, email, and phone to sign up.' });
       const taken = data.bookings.filter(b => b.roleId === role.id);
       if (taken.length >= role.needed) return reply(409, { error: `${role.name} just filled up. Pick another role.`, ...publicView(data) });
       if (taken.some(b => b.name.toLowerCase() === name.toLowerCase())) return reply(409, { error: `${name} is already signed up for ${role.name}.` });
